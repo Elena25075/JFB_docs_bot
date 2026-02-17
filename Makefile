@@ -14,6 +14,7 @@ lint:
 
 db-up:
 	docker compose up -d db
+	docker compose exec -T db psql -U ${POSTGRES_USER:-jfb_user} -d postgres -c "SELECT 1 FROM pg_database WHERE datname='${POSTGRES_TEST_DB:-jfb_docs_test}'" | grep -q 1 || docker compose exec -T db psql -U ${POSTGRES_USER:-jfb_user} -d postgres -c "CREATE DATABASE ${POSTGRES_TEST_DB:-jfb_docs_test}"
 
 db-down:
 	docker compose down

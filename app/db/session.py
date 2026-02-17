@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from contextlib import contextmanager
 from functools import lru_cache
 
@@ -28,7 +29,7 @@ def get_session_factory() -> sessionmaker[Session]:
 
 
 @contextmanager
-def get_session() -> Session:
+def get_session() -> Iterator[Session]:
     session = get_session_factory()()
     try:
         yield session
