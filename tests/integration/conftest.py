@@ -12,6 +12,8 @@ from sqlalchemy.engine import Engine, make_url
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session, sessionmaker
 
+ALLOWED_TEST_DB_HOSTS = {"localhost", "127.0.0.1", "::1"}
+
 
 def _build_alembic_config(database_url: str) -> Config:
     config = Config("alembic.ini")
@@ -42,6 +44,16 @@ def database_url() -> str:
         pytest.fail(
             "Unsafe TEST_DATABASE_URL database name detected. "
             "Database name must end with '_test'."
+        )
+    if parsed.host not in ALLOWED_TEST_DB_HOSTS:
+        pytest.fail(
+            "Unsafe TEST_DATABASE_URL host detected. "
+            "Allowed hosts for destructive reset: localhost, 127.0.0.1, ::1."
+        )
+    if os.getenv("ALLOW_DESTRUCTIVE_TEST_DB_RESET") != "1":
+        pytest.skip(
+            "Destructive DB reset is disabled. "
+            "Set ALLOW_DESTRUCTIVE_TEST_DB_RESET=1 to run DB integration tests."
         )
 
     return raw
