@@ -54,6 +54,17 @@ Record in PR:
 - test results,
 - known limitations.
 
+Recommended commands:
+
+- baseline local checks: `make lint && make test`
+- DB integration checks (local test DB reset enabled): `make test-db`
+
+DB integration safety gates:
+
+- requires `ALLOW_DESTRUCTIVE_TEST_DB_RESET=1`,
+- requires `TEST_DATABASE_URL` host in `localhost`, `127.0.0.1`, or `::1`,
+- requires `TEST_DATABASE_URL` database name to end with `_test`.
+
 ## 5) Issue Closure Workflow
 
 Before closing an issue:

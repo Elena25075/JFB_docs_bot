@@ -13,7 +13,6 @@ from sqlalchemy import (
     Index,
     Integer,
     PrimaryKeyConstraint,
-    String,
     Text,
     UniqueConstraint,
     func,
@@ -77,7 +76,7 @@ class Doc(Base):
         nullable=True,
     )
     http_status: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    language: Mapped[str] = mapped_column(String, nullable=False, server_default=text("'en'"))
+    language: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("'en'"))
 
     doc_themes: Mapped[list["DocTheme"]] = relationship(
         back_populates="doc",

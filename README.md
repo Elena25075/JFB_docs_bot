@@ -40,9 +40,11 @@ Repository bootstrap is complete. Execution follows sequential issues defined in
    `curl http://localhost:8000/health`
 5. Run tests:
    `make test`
-6. Run lint:
+6. Run DB integration tests (destructive reset on local test DB only):
+   `make test-db`
+7. Run lint:
    `make lint`
-7. Apply DB migrations:
+8. Apply DB migrations:
    `make migrate-up`
 
 ## Branching and Release
@@ -58,3 +60,9 @@ Every issue PR must include:
 - tests (unit/integration as applicable),
 - passing local test evidence,
 - updated docs if contract/behavior changed.
+
+DB test safety defaults:
+
+- `make test` keeps destructive DB integration tests disabled by default.
+- `make test-db` enables `ALLOW_DESTRUCTIVE_TEST_DB_RESET=1`.
+- DB integration tests run only when `TEST_DATABASE_URL` points to a local host and a database ending with `_test`.
