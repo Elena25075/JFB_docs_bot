@@ -16,9 +16,12 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
   "httpx>=0.28,<1.0",
-  "pytest>=8.3,<9.0",
+  "pytest>=7.4,<8.0",
   "ruff>=0.9,<1.0",
 ]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
 
 [tool.pytest.ini_options]
 addopts = "-ra"
