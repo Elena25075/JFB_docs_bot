@@ -39,5 +39,5 @@ db-reset:
 	docker compose up -d db
 	docker compose exec -T db sh -c "retries=30; until pg_isready -U $${POSTGRES_USER:-jfb_user} -d postgres; do retries=$$((retries - 1)); if [ $$retries -le 0 ]; then echo 'Postgres did not become ready within 30s' >&2; exit 1; fi; sleep 1; done"
 	docker compose exec -T db psql -U $${POSTGRES_USER:-jfb_user} -d postgres -c "SELECT 1 FROM pg_database WHERE datname='$${POSTGRES_TEST_DB:-jfb_docs_test}'" | grep -q 1 || docker compose exec -T db psql -U $${POSTGRES_USER:-jfb_user} -d postgres -c "CREATE DATABASE $${POSTGRES_TEST_DB:-jfb_docs_test}"
-	DATABASE_URL="$${DATABASE_URL:-$$(python3 -c "import os; from app.db.config import build_database_url; os.environ['POSTGRES_DB']=os.getenv('POSTGRES_DB','jfb_docs'); print(build_database_url())")}" python3 -m alembic upgrade head
-	DATABASE_URL="$${TEST_DATABASE_URL:-$$(python3 -c "import os; from app.db.config import build_database_url; os.environ['POSTGRES_DB']=os.getenv('POSTGRES_TEST_DB','jfb_docs_test'); print(build_database_url())")}" python3 -m alembic upgrade head
+	DATABASE_URL="$$(python3 -c "import os; from app.db.config import build_database_url; os.environ['POSTGRES_DB']=os.getenv('POSTGRES_DB','jfb_docs'); print(build_database_url())")" python3 -m alembic upgrade head
+	DATABASE_URL="$$(python3 -c "import os; from app.db.config import build_database_url; os.environ['POSTGRES_DB']=os.getenv('POSTGRES_TEST_DB','jfb_docs_test'); print(build_database_url())")" python3 -m alembic upgrade head
