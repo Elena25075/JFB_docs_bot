@@ -30,6 +30,7 @@ Source: `JetFormBuilder_KnowledgeGPT_SPEC.md`
 ## Current Status
 
 - 2026-02-17: Issue 1 completed (FastAPI `/health`, Postgres compose, scripts, tests, CI, GitHub issue created and tracked).
+- 2026-02-17: Issue 2 created on GitHub and ready for implementation.
 
 ## Release Milestones
 
