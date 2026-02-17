@@ -10,6 +10,7 @@ from sqlalchemy import (
     CheckConstraint,
     DateTime,
     ForeignKey,
+    Index,
     Integer,
     PrimaryKeyConstraint,
     String,
@@ -30,6 +31,9 @@ class Doc(Base):
     __tablename__ = "docs"
     __table_args__ = (
         UniqueConstraint("url", name="uq_docs_url"),
+        Index("idx_docs_source", "source"),
+        Index("idx_docs_type", "type"),
+        Index("idx_docs_published_at", text("published_at DESC")),
         CheckConstraint(
             "source IN ('jetformbuilder', 'crocoblock')",
             name="ck_docs_source_values",
@@ -101,6 +105,7 @@ class Theme(Base):
 class DocTheme(Base):
     __tablename__ = "doc_themes"
     __table_args__ = (
+        Index("idx_doc_themes_theme", "theme"),
         PrimaryKeyConstraint("doc_id", "theme", name="pk_doc_themes"),
     )
 

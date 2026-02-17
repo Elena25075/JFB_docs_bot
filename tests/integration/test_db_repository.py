@@ -33,6 +33,6 @@ def test_insert_select_round_trip(db_session: Session) -> None:
         assert loaded.source == "jetformbuilder"
         assert loaded.type == "tutorial"
 
-    link_rows = db_session.scalars(select(DocTheme)).all()
-    assert len(link_rows) == 1
-    assert link_rows[0].theme == "file upload"
+        link_rows = verify_session.scalars(select(DocTheme)).all()
+        assert len(link_rows) == 1
+        assert link_rows[0].theme == "file upload"

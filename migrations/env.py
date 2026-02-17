@@ -9,11 +9,14 @@ from app.db.config import get_database_url
 from app.db.models import Base
 
 config = context.config
+default_config_url = "postgresql+psycopg:///postgres"
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-config.set_main_option("sqlalchemy.url", get_database_url())
+configured_url = config.get_main_option("sqlalchemy.url")
+if not configured_url or configured_url == default_config_url:
+    config.set_main_option("sqlalchemy.url", get_database_url())
 target_metadata = Base.metadata
 
 
