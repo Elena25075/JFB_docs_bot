@@ -31,6 +31,7 @@ Source: `JetFormBuilder_KnowledgeGPT_SPEC.md`
 
 - 2026-02-17: Issue 1 completed (FastAPI `/health`, Postgres compose, scripts, tests, CI, GitHub issue created and tracked).
 - 2026-02-17: Issue 2 completed (migrations, DB layer, DB tests, CI validation, docs and conventions).
+- 2026-02-17: Issue 2 hardening updates completed (safe local `db-reset`, deterministic migration URLs, bounded DB readiness waits, fail-fast DB integration setup, encoded/IPv6-safe DB URL generation, and added unit coverage).
 
 ## Release Milestones
 

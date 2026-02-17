@@ -23,9 +23,14 @@ This project uses Alembic migrations in:
   - `make migrate-down`
 - Reset local DB and reapply migrations:
   - `make db-reset`
+- Run DB integration tests with destructive test reset enabled:
+  - `make test-db`
 
 ## Safety Rules
 
 - Never edit already-applied migration files.
 - Add new migration files for incremental changes.
 - Keep schema constraints explicit in migrations (PK/FK/UNIQUE/CHECK/indexes).
+- `make db-reset` is local-only and refuses non-local `POSTGRES_HOST` values.
+- `make db-reset` migration targets are derived from local `POSTGRES_*` settings (no ambient `DATABASE_URL` override).
+- DB URL generation supports IPv4 and IPv6 host formats.
