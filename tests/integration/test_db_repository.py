@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, sessionmaker
 
 from app.db.models import DocTheme
 from app.db.repository import create_doc, create_theme, get_doc_by_url, link_doc_theme
@@ -17,13 +17,21 @@ def test_insert_select_round_trip(db_session: Session) -> None:
     )
     create_theme(db_session, "file upload", "Covers upload-related workflows")
     link_doc_theme(db_session, doc.id, "file upload")
-    db_session.flush()
+    db_session.commit()
 
-    loaded = get_doc_by_url(db_session, "https://jetformbuilder.com/tutorials/example")
-    assert loaded is not None
-    assert loaded.url == "https://jetformbuilder.com/tutorials/example"
-    assert loaded.source == "jetformbuilder"
-    assert loaded.type == "tutorial"
+    verify_session_factory = sessionmaker(
+        bind=db_session.get_bind(),
+        autocommit=False,
+        autoflush=False,
+        class_=Session,
+    )
+
+    with verify_session_factory() as verify_session:
+        loaded = get_doc_by_url(verify_session, "https://jetformbuilder.com/tutorials/example")
+        assert loaded is not None
+        assert loaded.url == "https://jetformbuilder.com/tutorials/example"
+        assert loaded.source == "jetformbuilder"
+        assert loaded.type == "tutorial"
 
     link_rows = db_session.scalars(select(DocTheme)).all()
     assert len(link_rows) == 1

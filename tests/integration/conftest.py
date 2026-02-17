@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import time
 from collections.abc import Iterator
 
@@ -7,11 +8,9 @@ import pytest
 from alembic import command
 from alembic.config import Config
 from sqlalchemy import create_engine, text
-from sqlalchemy.engine import Engine
+from sqlalchemy.engine import Engine, make_url
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session, sessionmaker
-
-from app.db.config import get_test_database_url
 
 
 def _build_alembic_config(database_url: str) -> Config:
@@ -30,7 +29,22 @@ def _reset_public_schema(engine: Engine) -> None:
 
 @pytest.fixture(scope="session")
 def database_url() -> str:
-    return get_test_database_url()
+    raw = os.getenv("TEST_DATABASE_URL")
+    if not raw:
+        pytest.fail(
+            "TEST_DATABASE_URL is required for DB integration tests. "
+            "Refusing to use DATABASE_URL for destructive test setup."
+        )
+
+    parsed = make_url(raw)
+    db_name = parsed.database or ""
+    if not db_name.endswith("_test"):
+        pytest.fail(
+            "Unsafe TEST_DATABASE_URL database name detected. "
+            "Database name must end with '_test'."
+        )
+
+    return raw
 
 
 @pytest.fixture(scope="session")
@@ -68,6 +82,9 @@ def db_session(migrated_database: str) -> Iterator[Session]:
 
     with session_factory() as session:
         yield session
-        session.rollback()
+
+    with engine.connect() as connection:
+        connection = connection.execution_options(isolation_level="AUTOCOMMIT")
+        connection.execute(text("TRUNCATE TABLE doc_themes, docs, themes RESTART IDENTITY CASCADE"))
 
     engine.dispose()

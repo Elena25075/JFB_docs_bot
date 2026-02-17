@@ -27,4 +27,10 @@ def get_database_url() -> str:
 
 def get_test_database_url() -> str:
     """Database URL used by DB integration tests."""
-    return os.getenv("TEST_DATABASE_URL", get_database_url())
+    test_url = os.getenv("TEST_DATABASE_URL")
+    if not test_url:
+        raise RuntimeError(
+            "TEST_DATABASE_URL must be set for integration tests. "
+            "Refusing to fall back to DATABASE_URL."
+        )
+    return test_url
