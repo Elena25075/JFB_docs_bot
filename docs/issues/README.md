@@ -1,4 +1,4 @@
-# Issue Exploration Notes
+# Issue Notes and Closure Evidence
 
 Save one exploration note per issue:
 
@@ -14,3 +14,11 @@ Recommended structure:
 4. Risks and edge cases
 5. Open questions
 6. Test strategy for the issue
+
+Create one closure evidence file before closing each issue:
+
+- `docs/issues/ISSUE-XX-closure-evidence.md`
+
+Start from:
+
+- `docs/issues/ISSUE_CLOSURE_EVIDENCE_TEMPLATE.md`

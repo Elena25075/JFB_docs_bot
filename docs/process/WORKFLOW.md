@@ -54,7 +54,17 @@ Record in PR:
 - test results,
 - known limitations.
 
-## 5) File and Version Locations
+## 5) Issue Closure Workflow
+
+Before closing an issue:
+
+1. Create `docs/issues/ISSUE-XX-closure-evidence.md`.
+2. Fill it using `docs/issues/ISSUE_CLOSURE_EVIDENCE_TEMPLATE.md`.
+3. Verify each acceptance criterion with concrete evidence.
+4. Link PR(s), commits, and CI run URL.
+5. Close the GitHub issue only after evidence is complete.
+
+## 6) File and Version Locations
 
 Core planning and policy:
 
@@ -70,6 +80,7 @@ API contract:
 Issue exploration records:
 
 - `docs/issues/ISSUE-XX-exploration.md`
+- `docs/issues/ISSUE-XX-closure-evidence.md`
 
 Database schema versions:
 
@@ -81,7 +92,7 @@ Tests:
 - `tests/integration/`
 - `tests/fixtures/`
 
-## 6) Release and SemVer
+## 7) Release and SemVer
 
 Follow Semantic Versioning (`MAJOR.MINOR.PATCH`):
 
