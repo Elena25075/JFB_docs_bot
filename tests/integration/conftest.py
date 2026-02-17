@@ -63,18 +63,29 @@ def database_url() -> str:
 def migrated_database(database_url: str) -> Iterator[str]:
     engine = create_engine(database_url, pool_pre_ping=True)
     ready = False
+    last_error: SQLAlchemyError | None = None
     for _ in range(15):
         try:
             with engine.connect() as connection:
                 connection.execute(text("SELECT 1"))
             ready = True
             break
-        except SQLAlchemyError:
+        except SQLAlchemyError as exc:
+            last_error = exc
             time.sleep(1)
 
     if not ready:
         engine.dispose()
-        pytest.skip("Postgres is not reachable; skipping DB integration tests.")
+        parsed = make_url(database_url)
+        target = f"{parsed.host}:{parsed.port}/{parsed.database}"
+        detail = "unknown connection error"
+        if last_error is not None:
+            detail = f"{type(last_error).__name__}: {last_error}"
+        pytest.fail(
+            "Postgres test DB is not reachable after 15 attempts at "
+            f"{target}. Run `make db-up` and verify TEST_DATABASE_URL. "
+            f"Last error: {detail}"
+        )
 
     _reset_public_schema(engine)
     command.upgrade(_build_alembic_config(database_url), "head")

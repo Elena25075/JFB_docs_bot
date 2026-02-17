@@ -40,7 +40,7 @@ Repository bootstrap is complete. Execution follows sequential issues defined in
    `curl http://localhost:8000/health`
 5. Run tests:
    `make test`
-6. Run DB integration tests (destructive reset on local test DB only):
+6. Run DB integration tests (starts local Postgres and enables destructive reset on local test DB only):
    `make test-db`
 7. Run lint:
    `make lint`
