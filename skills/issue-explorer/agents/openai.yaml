@@ -1,0 +1,5 @@
+interface:
+  display_name: "Issue Explorer"
+  short_description: "Explore issues; ask clarifying questions"
+  default_prompt: "Use $issue-explorer to explore this issue (no implementation) and produce an Issue Exploration Report."
+

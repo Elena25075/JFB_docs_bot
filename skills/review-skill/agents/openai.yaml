@@ -1,0 +1,5 @@
+interface:
+  display_name: "Review Skill"
+  short_description: "Run concise, severity-ranked code reviews"
+  default_prompt: "Use $review-skill to run a comprehensive code review and report findings by severity."
+

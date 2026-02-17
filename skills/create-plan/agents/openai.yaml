@@ -1,0 +1,5 @@
+interface:
+  display_name: "Create Plan"
+  short_description: "Draft a concise tracked implementation plan"
+  default_prompt: "Use $create-plan to produce a minimal implementation plan with emoji status tracking and progress percentage."
+

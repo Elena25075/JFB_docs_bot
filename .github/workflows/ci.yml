@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: python -m pip install -e .[dev]
+      - name: Validate required project files
+        run: |
+          test -f JetFormBuilder_KnowledgeGPT_SPEC.md
+          test -f openapi.yaml
+          test -f README.md
+          test -f docker-compose.yml
+          test -f pyproject.toml
+      - name: Lint
+        run: ./scripts/lint.sh
+      - name: Tests
+        run: ./scripts/test.sh

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Execute Skill"
+  short_description: "Implement approved plan with live tracking"
+  default_prompt: "Use $execute-skill to implement the approved plan step-by-step and keep plan status/progress updated."
+

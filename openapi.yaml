@@ -1,0 +1,98 @@
+openapi: 3.1.0
+info:
+  title: JetFormBuilder Knowledge API
+  version: 0.1.0
+  description: API used by Custom GPT Actions for docs search, retrieval, and theme insights.
+servers:
+  - url: https://example.com
+security:
+  - ApiKeyAuth: []
+paths:
+  /health:
+    get:
+      summary: Health check
+      security: []
+      responses:
+        "200":
+          description: Service healthy
+  /v1/docs/search:
+    get:
+      summary: Search indexed docs
+      parameters:
+        - name: q
+          in: query
+          schema: { type: string }
+        - name: source
+          in: query
+          schema: { type: string, enum: [jetformbuilder, crocoblock] }
+        - name: type
+          in: query
+          schema: { type: string, enum: [tutorial, blog, kb, docs, unknown] }
+        - name: after
+          in: query
+          schema: { type: string, format: date }
+        - name: before
+          in: query
+          schema: { type: string, format: date }
+        - name: limit
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+      responses:
+        "200":
+          description: Search results
+  /v1/docs/get:
+    get:
+      summary: Retrieve full document by URL
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema: { type: string, format: uri }
+      responses:
+        "200":
+          description: Full document
+        "404":
+          description: Document not found
+  /v1/themes/list:
+    get:
+      summary: List themes with counts
+      parameters:
+        - name: after
+          in: query
+          schema: { type: string, format: date }
+        - name: before
+          in: query
+          schema: { type: string, format: date }
+        - name: min_docs
+          in: query
+          schema: { type: integer, minimum: 1, default: 1 }
+      responses:
+        "200":
+          description: Theme list
+  /v1/themes/gaps:
+    get:
+      summary: List gaps by theme
+      parameters:
+        - name: after
+          in: query
+          schema: { type: string, format: date }
+        - name: before
+          in: query
+          schema: { type: string, format: date }
+        - name: gap_type
+          in: query
+          schema:
+            type: string
+            enum:
+              - blog_theme_missing_tutorial
+              - new_feature_low_coverage
+              - tutorial_theme_missing_reference_article
+      responses:
+        "200":
+          description: Gap report
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key

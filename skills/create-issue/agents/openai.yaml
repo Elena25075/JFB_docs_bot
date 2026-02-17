@@ -1,0 +1,5 @@
+interface:
+  display_name: "Create Issue"
+  short_description: "Capture and draft complete issues fast"
+  default_prompt: "Use $create-issue to turn this rough problem statement into a complete issue draft."
+
