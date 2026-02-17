@@ -5,7 +5,7 @@
 - Issue number: 2
 - Title: DB schema + migrations
 - PR(s): N/A (implemented on repository mainline for this phase)
-- Commit(s): pending final Issue 2 commit
+- Commit(s): `6f4980f`
 - Date: 2026-02-17
 
 ## Acceptance Criteria Verification
@@ -34,9 +34,11 @@ make -n migrate-up migrate-down db-reset
 ## Results
 
 - Lint: passed.
-- Tests: passed with DB tests skipped locally when Postgres is unreachable (`2 passed, 2 skipped`).
-- Integration/smoke: health and unit tests pass locally; DB integration tests are configured and require reachable Postgres.
-- CI run URL: pending final push of Issue 2 implementation changes.
+- Tests:
+  - local sandbox run: `2 passed, 2 skipped` (DB unreachable locally)
+  - CI run: DB-backed checks passed
+- Integration/smoke: DB migration + repository integration tests passed in CI.
+- CI run URL: https://github.com/Elena25075/JFB_docs_bot/actions/runs/22107897270
 
 ## Risks / Follow-ups
 
@@ -46,6 +48,6 @@ make -n migrate-up migrate-down db-reset
 
 ## Closure Decision
 
-- [ ] Close issue now
-- [x] Keep issue open
-- Reason: wait for CI run on final Issue 2 push and confirm DB-backed checks in GitHub before closure.
+- [x] Close issue now
+- [ ] Keep issue open
+- Reason: acceptance criteria are implemented and validated with green DB-backed CI.

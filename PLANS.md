@@ -15,7 +15,7 @@ Source: `JetFormBuilder_KnowledgeGPT_SPEC.md`
 ## Issue Tracker
 
 1. [x] Issue 1 - Bootstrap repo + local dev environment
-2. [ ] Issue 2 - DB schema + migrations
+2. [x] Issue 2 - DB schema + migrations
 3. [ ] Issue 3 - URL discovery (sitemaps-first)
 4. [ ] Issue 4 - Crawler fetch + parse content
 5. [ ] Issue 5 - Theme extraction + normalization
@@ -30,7 +30,7 @@ Source: `JetFormBuilder_KnowledgeGPT_SPEC.md`
 ## Current Status
 
 - 2026-02-17: Issue 1 completed (FastAPI `/health`, Postgres compose, scripts, tests, CI, GitHub issue created and tracked).
-- 2026-02-17: Issue 2 created on GitHub and ready for implementation.
+- 2026-02-17: Issue 2 completed (migrations, DB layer, DB tests, CI validation, docs and conventions).
 
 ## Release Milestones
 

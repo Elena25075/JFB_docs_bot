@@ -1,6 +1,6 @@
 # Feature Implementation Plan
 
-**Overall Progress:** `83%`
+**Overall Progress:** `100%`
 
 ## TLDR
 Deliver a simple, working Postgres persistence foundation for Issue 2 by adding migrations, baseline DB access utilities, test coverage, and operator commands without expanding into crawler/search features.
@@ -40,10 +40,10 @@ Key architectural/implementation choices made during exploration:
   - [x] 🟩 Add insert/select integration test against migrated schema.
   - [x] 🟩 Update CI to run DB-backed tests with a Postgres service container.
 
-- [ ] 🟨 **Step 6: Document Migration Conventions and Evidence**
-  - [ ] 🟨 Document migration naming/versioning convention in process docs.
-  - [ ] 🟨 Add Issue 2 closure evidence file with command outputs and CI link.
-  - [ ] 🟨 Update `PLANS.md` status and close GitHub Issue 2 only after all criteria pass.
+- [x] 🟩 **Step 6: Document Migration Conventions and Evidence**
+  - [x] 🟩 Document migration naming/versioning convention in process docs.
+  - [x] 🟩 Add Issue 2 closure evidence file with command outputs and CI link.
+  - [x] 🟩 Update `PLANS.md` status and close GitHub Issue 2 only after all criteria pass.
 
 ## Scope Guardrails
 
