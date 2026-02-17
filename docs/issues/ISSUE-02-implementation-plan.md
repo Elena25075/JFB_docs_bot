@@ -1,6 +1,6 @@
 # Feature Implementation Plan
 
-**Overall Progress:** `0%`
+**Overall Progress:** `83%`
 
 ## TLDR
 Deliver a simple, working Postgres persistence foundation for Issue 2 by adding migrations, baseline DB access utilities, test coverage, and operator commands without expanding into crawler/search features.
@@ -14,36 +14,36 @@ Key architectural/implementation choices made during exploration:
 
 ## Tasks:
 
-- [ ] 🟥 **Step 1: Establish DB Toolchain and Configuration**
-  - [ ] 🟥 Add DB/migration dependencies (SQLAlchemy, Alembic, psycopg).
-  - [ ] 🟥 Initialize migration structure under `migrations/` and `migrations/versions/`.
-  - [ ] 🟥 Define DB connection config contract from env vars (compatible with `.env.example`).
+- [x] 🟩 **Step 1: Establish DB Toolchain and Configuration**
+  - [x] 🟩 Add DB/migration dependencies (SQLAlchemy, Alembic, psycopg).
+  - [x] 🟩 Initialize migration structure under `migrations/` and `migrations/versions/`.
+  - [x] 🟩 Define DB connection config contract from env vars (compatible with `.env.example`).
 
-- [ ] 🟥 **Step 2: Create Baseline Schema Migration**
-  - [ ] 🟥 Create migration to enable `pgcrypto` extension.
-  - [ ] 🟥 Create `docs`, `themes`, and `doc_themes` tables with required columns.
-  - [ ] 🟥 Enforce constraints: `UNIQUE (docs.url)`, `CHECK` constraints for `source` and `type`, PK/FK constraints.
-  - [ ] 🟥 Add minimum indexes: `docs(source)`, `docs(type)`, `docs(published_at DESC)`, `doc_themes(theme)`.
+- [x] 🟩 **Step 2: Create Baseline Schema Migration**
+  - [x] 🟩 Create migration to enable `pgcrypto` extension.
+  - [x] 🟩 Create `docs`, `themes`, and `doc_themes` tables with required columns.
+  - [x] 🟩 Enforce constraints: `UNIQUE (docs.url)`, `CHECK` constraints for `source` and `type`, PK/FK constraints.
+  - [x] 🟩 Add minimum indexes: `docs(source)`, `docs(type)`, `docs(published_at DESC)`, `doc_themes(theme)`.
 
-- [ ] 🟥 **Step 3: Add Minimal DB Access Layer**
-  - [ ] 🟥 Add engine/session lifecycle module for sync DB access.
-  - [ ] 🟥 Add minimal access primitives needed for insert/select test coverage.
-  - [ ] 🟥 Keep API health endpoint independent from DB checks (lightweight policy).
+- [x] 🟩 **Step 3: Add Minimal DB Access Layer**
+  - [x] 🟩 Add engine/session lifecycle module for sync DB access.
+  - [x] 🟩 Add minimal access primitives needed for insert/select test coverage.
+  - [x] 🟩 Keep API health endpoint independent from DB checks (lightweight policy).
 
-- [ ] 🟥 **Step 4: Add Migration and DB Operations Commands**
-  - [ ] 🟥 Add `make migrate-up` mapped to `alembic upgrade head`.
-  - [ ] 🟥 Add `make migrate-down` mapped to `alembic downgrade -1`.
-  - [ ] 🟥 Add `make db-reset` for clean local DB iteration.
+- [x] 🟩 **Step 4: Add Migration and DB Operations Commands**
+  - [x] 🟩 Add `make migrate-up` mapped to `alembic upgrade head`.
+  - [x] 🟩 Add `make migrate-down` mapped to `alembic downgrade -1`.
+  - [x] 🟩 Add `make db-reset` for clean local DB iteration.
 
-- [ ] 🟥 **Step 5: Add Tests and CI DB Verification**
-  - [ ] 🟥 Add migration test from clean DB state (`migrate up` creates all tables/constraints).
-  - [ ] 🟥 Add insert/select integration test against migrated schema.
-  - [ ] 🟥 Update CI to run DB-backed tests with a Postgres service container.
+- [x] 🟩 **Step 5: Add Tests and CI DB Verification**
+  - [x] 🟩 Add migration test from clean DB state (`migrate up` creates all tables/constraints).
+  - [x] 🟩 Add insert/select integration test against migrated schema.
+  - [x] 🟩 Update CI to run DB-backed tests with a Postgres service container.
 
-- [ ] 🟥 **Step 6: Document Migration Conventions and Evidence**
-  - [ ] 🟥 Document migration naming/versioning convention in process docs.
-  - [ ] 🟥 Add Issue 2 closure evidence file with command outputs and CI link.
-  - [ ] 🟥 Update `PLANS.md` status and close GitHub Issue 2 only after all criteria pass.
+- [ ] 🟨 **Step 6: Document Migration Conventions and Evidence**
+  - [ ] 🟨 Document migration naming/versioning convention in process docs.
+  - [ ] 🟨 Add Issue 2 closure evidence file with command outputs and CI link.
+  - [ ] 🟨 Update `PLANS.md` status and close GitHub Issue 2 only after all criteria pass.
 
 ## Scope Guardrails
 

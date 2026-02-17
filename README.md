@@ -15,6 +15,7 @@ Repository bootstrap is complete. Execution follows sequential issues defined in
 - GitHub setup and issue labels/board: `docs/process/GITHUB_SETUP.md`
 - GitHub Free constraints and guardrails: `docs/process/GITHUB_FREE_LIMITS.md`
 - Issue 1 GitHub delivery runbook: `docs/process/ISSUE_01_GITHUB_WORKFLOW.md`
+- Migration conventions and commands: `docs/process/MIGRATIONS.md`
 - API contract for GPT Actions: `openapi.yaml`
 - Semantic versioning policy: `docs/process/VERSIONING.md`
 
@@ -41,6 +42,8 @@ Repository bootstrap is complete. Execution follows sequential issues defined in
    `make test`
 6. Run lint:
    `make lint`
+7. Apply DB migrations:
+   `make migrate-up`
 
 ## Branching and Release
 

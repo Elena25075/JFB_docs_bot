@@ -91,6 +91,7 @@ Tests:
 - `tests/unit/`
 - `tests/integration/`
 - `tests/fixtures/`
+- `docs/process/MIGRATIONS.md`
 
 ## 7) Release and SemVer
 

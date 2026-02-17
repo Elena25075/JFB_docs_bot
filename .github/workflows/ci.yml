@@ -13,6 +13,23 @@ jobs:
   test-and-lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: jfb_docs
+          POSTGRES_USER: jfb_user
+          POSTGRES_PASSWORD: jfb_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U jfb_user -d jfb_docs"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql+psycopg://jfb_user:jfb_password@localhost:5432/jfb_docs
+      TEST_DATABASE_URL: postgresql+psycopg://jfb_user:jfb_password@localhost:5432/jfb_docs
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -27,6 +44,27 @@ jobs:
           test -f README.md
           test -f docker-compose.yml
           test -f pyproject.toml
+      - name: Wait for Postgres
+        run: |
+          python - <<'PY'
+          import time
+          from sqlalchemy import create_engine, text
+
+          engine = create_engine("postgresql+psycopg://jfb_user:jfb_password@localhost:5432/jfb_docs")
+          for attempt in range(30):
+              try:
+                  with engine.connect() as conn:
+                      conn.execute(text("SELECT 1"))
+                  print("Postgres is ready")
+                  break
+              except Exception:
+                  if attempt == 29:
+                      raise
+                  time.sleep(1)
+          engine.dispose()
+          PY
+      - name: Migrate
+        run: make migrate-up
       - name: Lint
         run: ./scripts/lint.sh
       - name: Tests
