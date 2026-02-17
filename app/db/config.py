@@ -10,11 +10,20 @@ def _env(name: str, default: str) -> str:
     return os.getenv(name, default)
 
 
+def _format_host(host: str) -> str:
+    """Format host for DSN composition (wrap bare IPv6 literals)."""
+    if host.startswith("[") and host.endswith("]"):
+        return host
+    if ":" in host:
+        return f"[{host}]"
+    return host
+
+
 def build_database_url() -> str:
     """Build Postgres URL from individual env vars."""
     user = quote_plus(_env("POSTGRES_USER", "jfb_user"))
     password = quote_plus(_env("POSTGRES_PASSWORD", "jfb_password"))
-    host = _env("POSTGRES_HOST", "localhost")
+    host = _format_host(_env("POSTGRES_HOST", "localhost"))
     port = _env("POSTGRES_PORT", "5432")
     database = _env("POSTGRES_DB", "jfb_docs")
     return f"postgresql+psycopg://{user}:{password}@{host}:{port}/{database}"
