@@ -5,7 +5,7 @@
 - Issue number: 3
 - Title: URL discovery (sitemaps-first)
 - PR(s): N/A (implemented on repository mainline for this phase)
-- Commit(s): Pending final Issue 3 implementation commit(s)
+- Commit(s): `7bfb06a`
 - Date: 2026-02-18
 
 ## Acceptance Criteria Verification
@@ -40,7 +40,7 @@ JETFORMBUILDER_SITEMAP_URL=http://127.0.0.1:1/sitemap.xml CROCOBLOCK_SITEMAP_URL
 - Integration/smoke:
   - Discovery queue migration renders in offline SQL migration output.
   - Discovery command failure path returns non-zero and emits `url_discovery_failed` JSON.
-- CI run URL: pending push for final Issue 3 implementation commit.
+- CI run URL: https://github.com/Elena25075/JFB_docs_bot/actions/runs/22132800385
 
 ## Risks / Follow-ups
 

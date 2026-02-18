@@ -1,6 +1,6 @@
 # Feature Implementation Plan
 
-**Overall Progress:** `83%`
+**Overall Progress:** `100%`
 
 ## TLDR
 Implement Issue 3 by adding a sitemap-first URL discovery pipeline that stores crawl candidates in a dedicated queue table, classifies URLs with a safe fallback, and reports source/type discovery counts for predictable handoff to Issue 4.
@@ -39,10 +39,10 @@ Key architectural/implementation choices made during exploration:
   - [x] 🟩 Add unit tests for URL type classification and normalization edge cases.
   - [x] 🟩 Add integration test for DB persistence idempotency and count reporting contract.
 
-- [ ] 🟨 **Step 6: Validate Acceptance and Update Documentation**
+- [x] 🟩 **Step 6: Validate Acceptance and Update Documentation**
   - [x] 🟩 Run lint/tests and capture command evidence for Issue 3 closure.
   - [x] 🟩 Document discovery command usage and expected output in process/readme docs.
-  - [ ] 🟨 Update issue closure evidence with CI links and acceptance verification.
+  - [x] 🟩 Update issue closure evidence with CI links and acceptance verification.
 
 ## Scope Guardrails
 
