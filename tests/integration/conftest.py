@@ -108,6 +108,10 @@ def db_session(migrated_database: str) -> Iterator[Session]:
 
     with engine.connect() as connection:
         connection = connection.execution_options(isolation_level="AUTOCOMMIT")
-        connection.execute(text("TRUNCATE TABLE doc_themes, docs, themes RESTART IDENTITY CASCADE"))
+        truncate_sql = (
+            "TRUNCATE TABLE doc_themes, docs, themes, discovered_urls "
+            "RESTART IDENTITY CASCADE"
+        )
+        connection.execute(text(truncate_sql))
 
     engine.dispose()

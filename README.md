@@ -46,6 +46,13 @@ Repository bootstrap is complete. Execution follows sequential issues defined in
    `make lint`
 8. Apply DB migrations:
    `make migrate-up`
+9. Discover crawl candidate URLs from sitemaps:
+   `make discover-urls`
+
+Discovery output contract:
+
+- Success emits JSON with `event=url_discovery_summary`, `candidate_count`, `processed_count`, and `counts_by_source_type`.
+- Hard failures emit JSON with `event=url_discovery_failed` and return non-zero.
 
 ## Branching and Release
 
@@ -66,3 +73,8 @@ DB test safety defaults:
 - `make test` keeps destructive DB integration tests disabled by default.
 - `make test-db` enables `ALLOW_DESTRUCTIVE_TEST_DB_RESET=1`.
 - DB integration tests run only when `TEST_DATABASE_URL` points to a local host and a database ending with `_test`.
+
+Discovery env overrides:
+
+- `JETFORMBUILDER_SITEMAP_URL` (default: `https://jetformbuilder.com/sitemap_index.xml`)
+- `CROCOBLOCK_SITEMAP_URL` (default: `https://crocoblock.com/sitemap_index.xml`)

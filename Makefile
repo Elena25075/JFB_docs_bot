@@ -1,4 +1,4 @@
-.PHONY: install dev test test-db lint db-up db-down migrate-up migrate-down db-reset
+.PHONY: install dev test test-db lint discover-urls db-up db-down migrate-up migrate-down db-reset
 
 install:
 	python3 -m pip install -e .[dev]
@@ -14,6 +14,9 @@ test-db: db-up
 
 lint:
 	./scripts/lint.sh
+
+discover-urls:
+	bash ./scripts/discover_urls.sh
 
 db-up:
 	docker compose up -d db

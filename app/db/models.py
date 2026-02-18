@@ -121,3 +121,45 @@ class DocTheme(Base):
 
     doc: Mapped[Doc] = relationship(back_populates="doc_themes")
     theme_rel: Mapped[Theme] = relationship(back_populates="doc_themes")
+
+
+class DiscoveredUrl(Base):
+    __tablename__ = "discovered_urls"
+    __table_args__ = (
+        UniqueConstraint("url", name="uq_discovered_urls_url"),
+        Index("idx_discovered_urls_status_discovered_at", "status", "discovered_at"),
+        CheckConstraint(
+            "source IN ('jetformbuilder', 'crocoblock')",
+            name="ck_discovered_urls_source_values",
+        ),
+        CheckConstraint(
+            "type IN ('tutorial', 'blog', 'kb', 'docs', 'unknown')",
+            name="ck_discovered_urls_type_values",
+        ),
+        CheckConstraint(
+            "status IN ('pending', 'processing', 'crawled', 'failed')",
+            name="ck_discovered_urls_status_values",
+        ),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True),
+        primary_key=True,
+        server_default=text("gen_random_uuid()"),
+    )
+    url: Mapped[str] = mapped_column(Text, nullable=False)
+    source: Mapped[str] = mapped_column(Text, nullable=False)
+    type: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("'unknown'"))
+    status: Mapped[str] = mapped_column(Text, nullable=False, server_default=text("'pending'"))
+    discovered_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
+    last_seen_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        nullable=False,
+        server_default=func.now(),
+    )
+    crawl_attempts: Mapped[int] = mapped_column(Integer, nullable=False, server_default=text("0"))
+    last_error: Mapped[Optional[str]] = mapped_column(Text, nullable=True)

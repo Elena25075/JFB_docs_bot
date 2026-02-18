@@ -58,12 +58,18 @@ Recommended commands:
 
 - baseline local checks: `make lint && make test`
 - DB integration checks (local test DB reset enabled): `make test-db`
+- sitemap discovery execution: `make discover-urls`
 
 DB integration safety gates:
 
 - requires `ALLOW_DESTRUCTIVE_TEST_DB_RESET=1`,
 - requires `TEST_DATABASE_URL` host in `localhost`, `127.0.0.1`, or `::1`,
 - requires `TEST_DATABASE_URL` database name to end with `_test`.
+
+Discovery command behavior:
+
+- Success prints a JSON summary event: `url_discovery_summary`.
+- Failure prints a JSON error event: `url_discovery_failed` and exits non-zero.
 
 ## 5) Issue Closure Workflow
 

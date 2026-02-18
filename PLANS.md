@@ -16,7 +16,7 @@ Source: `JetFormBuilder_KnowledgeGPT_SPEC.md`
 
 1. [x] Issue 1 - Bootstrap repo + local dev environment
 2. [x] Issue 2 - DB schema + migrations
-3. [ ] Issue 3 - URL discovery (sitemaps-first)
+3. [x] Issue 3 - URL discovery (sitemaps-first)
 4. [ ] Issue 4 - Crawler fetch + parse content
 5. [ ] Issue 5 - Theme extraction + normalization
 6. [ ] Issue 6 - Search API (ranking + filters)
@@ -32,6 +32,7 @@ Source: `JetFormBuilder_KnowledgeGPT_SPEC.md`
 - 2026-02-17: Issue 1 completed (FastAPI `/health`, Postgres compose, scripts, tests, CI, GitHub issue created and tracked).
 - 2026-02-17: Issue 2 completed (migrations, DB layer, DB tests, CI validation, docs and conventions).
 - 2026-02-17: Issue 2 hardening updates completed (safe local `db-reset`, deterministic migration URLs, bounded DB readiness waits, fail-fast DB integration setup, encoded/IPv6-safe DB URL generation, and added unit coverage).
+- 2026-02-18: Issue 3 completed (sitemap-first discovery module, `discovered_urls` queue schema, discovery command/logging contract, and discovery test coverage).
 
 ## Release Milestones
 
